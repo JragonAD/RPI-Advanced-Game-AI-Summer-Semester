@@ -2,6 +2,7 @@ import random
 
 from constants import *
 
+
 class Gene:
     def __init__(self, gene):
         self.gene = gene
@@ -14,8 +15,12 @@ class Gene:
         target = target.get_gene()
         fit = 0
 
-        self.is_letter_locked = [False] * self.length # If current letter is correct, don't mutate
-        self.is_letter_contained = [False] * self.length # If current letter is contained, move when mutating
+        self.is_letter_locked = [
+            False
+        ] * self.length  # If current letter is correct, don't mutate
+        self.is_letter_contained = [
+            False
+        ] * self.length  # If current letter is contained, move when mutating
 
         if self.gene == target:
             return len(self.gene * MATCH_REWARD)
@@ -28,7 +33,9 @@ class Gene:
                 self.is_letter_locked[i] = True
 
         for i in range(len(target_compare)):
-            if self.is_letter_locked[i]: # Ensures following checks exclusively for contained letters
+            if self.is_letter_locked[
+                i
+            ]:  # Ensures following checks exclusively for contained letters
                 continue
 
             if self.gene[i] in target_compare:
@@ -52,24 +59,29 @@ class Gene:
         while i < MUTATION_N:
             # j += 1
             # if j > 100:
-                # print("A", self.gene, self.is_letter_contained, self.is_letter_locked)
+            # print("A", self.gene, self.is_letter_contained, self.is_letter_locked)
 
-            index = random.randint(0, len(self.gene)-1)
+            index = random.randint(0, len(self.gene) - 1)
 
-            if choice: # Replace letter
-                if sum(self.is_letter_locked) + sum(self.is_letter_contained) == self.length:
+            if choice:  # Replace letter
+                if (
+                    sum(self.is_letter_locked) + sum(self.is_letter_contained)
+                    == self.length
+                ):
                     gene = self.gene
                     break
 
-                if self.is_letter_locked[index]: # Only let unlocked letters mutate
+                if self.is_letter_locked[index]:  # Only let unlocked letters mutate
                     continue
 
                 if self.is_letter_contained[index]:
                     continue
 
-                gene = self.gene[:index] + random.choice(LETTERS) + self.gene[index+1:]
+                gene = (
+                    self.gene[:index] + random.choice(LETTERS) + self.gene[index + 1 :]
+                )
 
-            else: # Move letter
+            else:  # Move letter
                 if not self.is_letter_contained[index]:
                     continue
 
@@ -77,9 +89,9 @@ class Gene:
                 while True:
                     # k += 1
                     # if k > 100:
-                        # print(self.target, self.target_compare, self.gene, self.is_letter_contained, self.is_letter_locked)
+                    # print(self.target, self.target_compare, self.gene, self.is_letter_contained, self.is_letter_locked)
 
-                    to_index = random.randint(0, len(self.gene)-1)
+                    to_index = random.randint(0, len(self.gene) - 1)
 
                     if self.is_letter_locked[to_index]:
                         continue
@@ -102,10 +114,12 @@ class Gene:
 
             i += 1
 
-        return gene # Returns mutated to create new gene with; keeps this one same
+        return gene  # Returns mutated to create new gene with; keeps this one same
 
     # Both mutate and swap letters to increase efficiency; doesn't seem to actually work
-    def get_mutation_both(self): #! NOTE: This function is not used. It serves as a reference for possible improvements
+    def get_mutation_both(
+        self,
+    ):  #! NOTE: This function is not used. It serves as a reference for possible improvements
         choices = [True, False]
         for choice in choices:
 
@@ -114,25 +128,31 @@ class Gene:
             while i < MUTATION_N:
                 # j += 1
                 # if j > 100:
-                    # print("A", self.gene, self.is_letter_contained, self.is_letter_locked)
+                # print("A", self.gene, self.is_letter_contained, self.is_letter_locked)
 
+                index = random.randint(0, len(self.gene) - 1)
 
-                index = random.randint(0, len(self.gene)-1)
-
-                if choice: # Replace letter
-                    if sum(self.is_letter_locked) + sum(self.is_letter_contained) == self.length:
+                if choice:  # Replace letter
+                    if (
+                        sum(self.is_letter_locked) + sum(self.is_letter_contained)
+                        == self.length
+                    ):
                         gene = self.gene
                         break
 
-                    if self.is_letter_locked[index]: # Only let unlocked letters mutate
+                    if self.is_letter_locked[index]:  # Only let unlocked letters mutate
                         continue
 
                     if self.is_letter_contained[index]:
                         continue
 
-                    gene = self.gene[:index] + random.choice(LETTERS) + self.gene[index+1:]
+                    gene = (
+                        self.gene[:index]
+                        + random.choice(LETTERS)
+                        + self.gene[index + 1 :]
+                    )
 
-                else: # Move letter
+                else:  # Move letter
                     if True not in self.is_letter_contained:
                         break
 
@@ -143,9 +163,9 @@ class Gene:
                     while True:
                         # k += 1
                         # if k > 100:
-                            # print(self.target, self.target_compare, self.gene, self.is_letter_contained, self.is_letter_locked)
+                        # print(self.target, self.target_compare, self.gene, self.is_letter_contained, self.is_letter_locked)
 
-                        to_index = random.randint(0, len(self.gene)-1)
+                        to_index = random.randint(0, len(self.gene) - 1)
 
                         if self.is_letter_locked[to_index]:
                             continue
@@ -160,7 +180,9 @@ class Gene:
                         gene_chars[index] = temp
 
                         temp_bool = self.is_letter_contained[to_index]
-                        self.is_letter_contained[to_index] = self.is_letter_contained[index]
+                        self.is_letter_contained[to_index] = self.is_letter_contained[
+                            index
+                        ]
                         self.is_letter_contained[index] = temp_bool
 
                         gene = "".join(gene_chars)
@@ -168,7 +190,7 @@ class Gene:
 
                 i += 1
 
-        return gene # Returns mutated to create new gene with; keeps this one same
+        return gene  # Returns mutated to create new gene with; keeps this one same
 
     def get_gene(self):
         return self.gene

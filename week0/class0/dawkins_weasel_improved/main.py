@@ -3,8 +3,10 @@ import random
 from constants import *
 from gene import Gene
 
+
 def generate_word(length):
     return "".join([random.choice(LETTERS) for i in range(length)])
+
 
 class Runner:
     def __init__(self, target_str):
@@ -26,22 +28,19 @@ class Runner:
 
         return parents
 
-
     def select_parents(self):
         isFound = False
         selected = []
 
         selected = sorted(self.parents, key=lambda f: f.get_fitness(self.target))
 
-        selected = selected[int(POPULATION * (1 - KEEP_PERCENTAGE)):]
+        selected = selected[int(POPULATION * (1 - KEEP_PERCENTAGE)) :]
 
         max_fitness = selected[-1].get_fitness(self.target)
 
         isFound = max_fitness == self.target.get_fitness(self.target)
 
         return selected, isFound, selected[-1].get_gene(), max_fitness
-
-
 
     def run(self):
         isFound = False
@@ -63,9 +62,9 @@ class Runner:
         return iteration_num
 
 
-if __name__=='__main__':
+if __name__ == "__main__":
     total_iterations = 0
-    for i in range(1, TEST_CASES+1):
+    for i in range(1, TEST_CASES + 1):
         word = generate_word(WORD_LENGTH)
         r = Runner(word)
         iterations = r.run()
@@ -76,7 +75,9 @@ if __name__=='__main__':
 
     print()
     print(f"Total iterations: {total_iterations} for {TEST_CASES} test cases.")
-    print(f"With an average of {total_iterations / TEST_CASES} iterations per test case.")
+    print(
+        f"With an average of {total_iterations / TEST_CASES} iterations per test case."
+    )
 
 
 """
