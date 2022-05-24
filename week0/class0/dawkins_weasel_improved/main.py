@@ -9,14 +9,17 @@ def generate_word(length):
 
 
 class Runner:
-    def __init__(self, target_str):
+    def __init__(self, target_str, output=False):
 
         self.target = Gene(target_str)
 
-        # print(f"Target: ", self.target.get_gene())
-
         self.length = self.target.get_length()
-        # print(f"Length: ", self.length)
+
+        if output:
+            print(f"Target: ", self.target.get_gene())
+            print(f"Length: ", self.length)
+
+        self.output = output
 
         self.parents = self.generate_population()
 
@@ -57,27 +60,40 @@ class Runner:
 
             self.parents = selected + mutated
 
-            # print(f"Iteration: {iteration_num} Best gene: {bestGene} Best fitness: {bestFitness}")
+            if self.output:
+                print(
+                    f"Iteration: {iteration_num} Best gene: {bestGene} Best fitness: {bestFitness}"
+                )
 
         return iteration_num
 
 
 if __name__ == "__main__":
-    total_iterations = 0
-    for i in range(1, TEST_CASES + 1):
-        word = generate_word(WORD_LENGTH)
-        r = Runner(word)
+    MANUAL = False
+
+    if MANUAL:
+        inp = input("Word: ")
+        r = Runner(inp, MANUAL)
         iterations = r.run()
 
-        print(f"Test case: {i} Word: {word} Iterations: {iterations}")
+    else:
+        total_iterations = 0
+        for i in range(1, TEST_CASES + 1):
+            word = generate_word(WORD_LENGTH)
+            r = Runner(word)
+            iterations = r.run()
 
-        total_iterations += iterations
+            print(f"Test case: {i} Word: {word} Iterations: {iterations}")
 
-    print()
-    print(f"Total iterations: {total_iterations} for {TEST_CASES} test cases.")
-    print(
-        f"With an average of {total_iterations / TEST_CASES} iterations per test case."
-    )
+            total_iterations += iterations
+
+        print()
+        print(
+            f"Total iterations: {total_iterations} for {TEST_CASES} test cases of {WORD_LENGTH} length words."
+        )
+        print(
+            f"With an average of {total_iterations / TEST_CASES} iterations per test case."
+        )
 
 
 """
