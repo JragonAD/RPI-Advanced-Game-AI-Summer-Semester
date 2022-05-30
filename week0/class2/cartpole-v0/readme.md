@@ -25,7 +25,7 @@
     - 5K Episode Length
     - 64 Population
     - 2 Episodes Per Evaluation
-- Way too fast version solved in **0.018** seconds with perfect PID (what???)
+- Way too fast version solved in **0.018** seconds with perfect PID (what???) (unstable, make sure to not override stable solves)
     - (4, 1, 2) Architecture
     - 200 Episode Length
     - 64 Population
