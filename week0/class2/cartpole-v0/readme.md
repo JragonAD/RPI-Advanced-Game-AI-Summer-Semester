@@ -1,5 +1,5 @@
 # Cartpole-v0 05-29-22
-- Time spend coding: 2 hours
+- Time spent coding: 2 hours
 
 ## Utilizes genetic algorithm:
 - (4, 16, 2) Architecture
@@ -25,7 +25,7 @@
     - 5K Episode Length
     - 64 Population
     - 2 Episodes Per Evaluation
-- Way too fast version solved in **0.018** seconds with perfect PID (what???) (unstable, make sure to not override stable solves)
+- Way too fast version solved in **0.018** seconds with perfect PID (what???) (unstable, make sure to not overwrite stable solves)
     - (4, 1, 2) Architecture
     - 200 Episode Length
     - 64 Population
