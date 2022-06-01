@@ -1,0 +1,1 @@
+Try giving reward of -1 for every frame that the motors don't move to push the agent to think ahead
