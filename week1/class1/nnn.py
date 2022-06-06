@@ -232,6 +232,10 @@ class GA:
                 self.solved_net = nets[-1]
                 break
 
+        """Note:
+        Not done yet, needs model path generation and testing
+        """
+
     def load(self):
         with open(path, "rb") as f:
             self.nets = pickle.load(f)
